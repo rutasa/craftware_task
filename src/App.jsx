@@ -4,7 +4,11 @@ import * as headerImage from "./assets/header.png";
 import * as bikeImage from "./assets/bike.png";
 import * as benchImage from "./assets/bench.png";
 import * as questionIcon from "./assets/question.png";
-import Sliders from "./Sliders";
+import * as checkIcon from "./assets/check.png";
+import SlidersBox from "./SlidersBox";
+import LoanDetailsBox from './LoanDetailsBox';
+import YourDetails from './YourDetailsForm';
+import Video from './Video';
 
 export default function App() {
   React.useEffect(() => {
@@ -15,16 +19,8 @@ export default function App() {
     <div>
       <ImageContainer />
       <BikeImage src={bikeImage} />
-      <Video width="400" height="270" controls>
-        <source src="" type="video/mp4" />
-      </Video>
-      <SliderContainer>
-        <StyledHeaderH4>Lorem ipsum dolor sit amet</StyledHeaderH4>
-        <StyledSubheader>
-          Lorem ipsum dolor sit amet, consectetur adipisicing elit
-        </StyledSubheader>
-        <Sliders />
-      </SliderContainer>
+      <Video/>
+      <SlidersBox/>
       <BenchImage src={benchImage} />
       <Bar>
         Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
@@ -43,7 +39,13 @@ export default function App() {
             title="Tooltip content"
           />
         </StyledSubheader>
-          
+        <CheckboxContent>
+            <CheckboxItem><CheckboxIcon src={checkIcon}/><StyledSubheader>Lorem ipsum dolor sit amet</StyledSubheader></CheckboxItem>
+            <Spacer/>
+            <CheckboxItem><CheckboxIcon src={checkIcon}/><StyledSubheader>Lorem ipsum dolor sit amet</StyledSubheader></CheckboxItem>
+        </CheckboxContent>
+        <LoanDetailsBox/>
+        <YourDetails/>
       </FormContent>
     </div>
   );
@@ -76,25 +78,6 @@ const BenchImage = styled.img`
   z-index: 10;
 `;
 
-const Video = styled.video`
-  border-radius: 5%;
-  position: absolute;
-  top: 50px;
-  left: 50%;
-`;
-
-const SliderContainer = styled.div`
-  width: 400px;
-  height: 270px;
-  background-color: #ffffff;
-  border-radius: 5%;
-  position: absolute;
-  top: 100px;
-  left: 25%;
-  padding: 20px 10px;
-  text-align: center;
-`;
-
 const StyledHeaderH4 = styled.h4`
   font-weight: 600;
 `;
@@ -117,7 +100,28 @@ const Bar = styled.div`
 const FormContent = styled.div`
   display: flex;
   flex-direction: column;
-  margin-top: 550px;
+  margin: 550px auto 0;
   justify-content: center;
   align-items: center;
+  width: 400px;
+`;
+
+const CheckboxContent = styled.div`
+    display: flex;
+    flex-direction: row;
+`;
+
+const CheckboxItem = styled.div`
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+`;
+
+const CheckboxIcon = styled.img`
+    width: 24px;
+    height: 24px;
+`;
+
+const Spacer = styled.div`
+    width: 30px;
 `;

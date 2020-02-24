@@ -26,8 +26,8 @@ function Sliders({ updateLoanDetails }) {
 
   return (
     <SlidersWrapper>
-      <Slider>
-        <input
+      <SliderContainer>
+        <Slider
           type="range"
           min="1"
           max="10"
@@ -35,10 +35,10 @@ function Sliders({ updateLoanDetails }) {
           id="loanRange"
           onChange={handleChangeLoanAmount}
         />
-      </Slider>
+      </SliderContainer>
       <SliderValue>{`$${loanAmount * 10000}`}</SliderValue>
-      <Slider>
-        <input
+      <SliderContainer>
+        <Slider
           type="range"
           min={loanAmount > 5 ? 3 : 1}
           max="4"
@@ -46,7 +46,7 @@ function Sliders({ updateLoanDetails }) {
           id="loanTermRange"
           onChange={handleChangeLoanTerm}
         />
-      </Slider>
+      </SliderContainer>
       <SliderValue>{`${loanTermMapper[loanTerm]} months`}</SliderValue>
       <ButtonWrapper>
         <Button
@@ -77,8 +77,46 @@ const SlidersWrapper = styled.div`
   flex-wrap: wrap;
 `;
 
-const Slider = styled.div`
+const SliderContainer = styled.div`
   width: 70%;
+  margin-bottom: 20px;
+`;
+
+const Slider = styled.input`
+  appearance: none;
+  width: 100%;
+  height: 25px;
+  border-radius: 15px;
+  background: #111f3b;
+  outline: none;
+  overflow: hidden;
+  
+  &::-webkit-slider-thumb {
+    appearance: none;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    background: #05B7AB;
+    border: 2px solid #ffffff;
+    cursor: pointer;
+    box-shadow: -200px 0 0 190px #f66000;
+  }
+  
+  &::-moz-range-progress {
+    background-color: #f66000;
+  }
+  
+  &::-moz-range-track {
+    background-color: #111f3b;
+  }
+  
+  &::-ms-fill-lower {
+    background-color: #f66000;
+  }
+  
+  &::-ms-fill-upper {
+    background-color: #111f3b;
+  }
 `;
 
 const SliderValue = styled.div`
@@ -86,7 +124,6 @@ const SliderValue = styled.div`
 `;
 
 const ButtonWrapper = styled.div`
-  margin-top: 20px;
   display: flex;
   width: 100%;
 `;
@@ -94,7 +131,7 @@ const ButtonWrapper = styled.div`
 const Button = styled.button`
   border-radius: 1rem;
   font-weight: 600;
-  width: 35%;
+  width: 45%;
   background-color: #f66000;
   border-color: #f66000;
   color: #ffffff;
@@ -105,5 +142,5 @@ const ButtonSideText = styled.p`
   display: flex;
   align-items: center;
   font-size: 0.8rem;
-  padding-left: 30px;
+  padding-left: 20px;
 `;

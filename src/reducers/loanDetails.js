@@ -8,6 +8,10 @@ const loanDetails = (state = initialState, action) => {
         case 'UPDATE_LOAN_DETAILS':
             const { loanAmount, loanTerm } = action.payload;
             return {loanAmount, loanTerm};
+        case 'UPDATE_LOAN_AMOUNT':
+            return {...state, loanAmount: action.payload};
+        case 'UPDATE_LOAN_TERM':
+            return {...state, loanTerm: action.payload};
         default:
             return state;
     }
