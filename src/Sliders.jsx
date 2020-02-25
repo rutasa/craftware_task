@@ -24,6 +24,11 @@ function Sliders({ updateLoanDetails }) {
     setLoanTerm(event.target.value);
   }
 
+  function handleSubmit() {
+    updateLoanDetails(loanAmount * 10000, loanTermMapper[loanTerm]);
+    window.scrollTo(0, 500);
+  }
+
   return (
     <SlidersWrapper>
       <SliderContainer>
@@ -36,7 +41,7 @@ function Sliders({ updateLoanDetails }) {
           onChange={handleChangeLoanAmount}
         />
       </SliderContainer>
-      <SliderValue>{`$${loanAmount * 10000}`}</SliderValue>
+      <SliderValue>{`$${(loanAmount * 10000).toLocaleString()}`}</SliderValue>
       <SliderContainer>
         <Slider
           type="range"
@@ -49,13 +54,7 @@ function Sliders({ updateLoanDetails }) {
       </SliderContainer>
       <SliderValue>{`${loanTermMapper[loanTerm]} months`}</SliderValue>
       <ButtonWrapper>
-        <Button
-          type="button"
-          className="btn"
-          onClick={() =>
-            updateLoanDetails(loanAmount * 10000, loanTermMapper[loanTerm])
-          }
-        >
+        <Button type="button" className="btn" onClick={handleSubmit}>
           Apply now
         </Button>
         <ButtonSideText>Lorem ipsum dolor sit amet</ButtonSideText>
@@ -90,30 +89,30 @@ const Slider = styled.input`
   background: #111f3b;
   outline: none;
   overflow: hidden;
-  
+
   &::-webkit-slider-thumb {
     appearance: none;
     width: 30px;
     height: 30px;
     border-radius: 50%;
-    background: #05B7AB;
+    background: #05b7ab;
     border: 2px solid #ffffff;
     cursor: pointer;
     box-shadow: -200px 0 0 190px #f66000;
   }
-  
+
   &::-moz-range-progress {
     background-color: #f66000;
   }
-  
+
   &::-moz-range-track {
     background-color: #111f3b;
   }
-  
+
   &::-ms-fill-lower {
     background-color: #f66000;
   }
-  
+
   &::-ms-fill-upper {
     background-color: #111f3b;
   }

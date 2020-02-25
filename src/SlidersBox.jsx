@@ -36,6 +36,10 @@ const SliderContainer = styled.div`
   left: 25%;
   padding: 20px 10px;
   text-align: center;
+
+  @media only screen and (max-width: 500px) {
+    display: none;
+  }
 `;
 
 const StyledHeaderH4 = styled.h4`

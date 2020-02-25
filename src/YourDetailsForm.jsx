@@ -2,6 +2,7 @@ import styled from "styled-components";
 import React from "react";
 import { Formik, Field, Form, ErrorMessage } from "formik";
 import * as Yup from "yup";
+import Tooltip from "./Tooltip";
 
 export default function YourDetails() {
   const [formSubmitted, setFormSubmitted] = React.useState(false);
@@ -15,9 +16,15 @@ export default function YourDetails() {
           email: "",
           terms: false
         }}
+        validateOnBlur={false}
+        validateOnChange={formSubmitted}
         validationSchema={Yup.object({
-          fullName: Yup.string().matches(/\b[a-zA-Z]+\s[a-zA-Z]+\b/, 'Please check your full name').required("Required"),
-          mobileNumber: Yup.string().matches(/^(86)([0-9]{7})$/, 'Please check your phone number').required("Required"),
+          fullName: Yup.string()
+            .matches(/\b[a-zA-Z]+\s[a-zA-Z]+\b/, "Please check your full name")
+            .required("Required"),
+          mobileNumber: Yup.string()
+            .matches(/^(86)([0-9]{7})$/, "Please check your phone number")
+            .required("Required"),
           email: Yup.string()
             .email("Invalid email address")
             .required("Required"),
@@ -31,7 +38,8 @@ export default function YourDetails() {
               <StyledField
                 name="fullName"
                 type="text"
-                errorpresent={formSubmitted ? !!errors.fullName : undefined}
+                autoComplete="off"
+                errorpresent={formSubmitted && !!errors.fullName ? 1 : 0}
               />
               <ErrorMessage
                 name="fullName"
@@ -43,7 +51,8 @@ export default function YourDetails() {
               <StyledField
                 name="mobileNumber"
                 type="tel"
-                errorpresent={formSubmitted ? !!errors.mobileNumber : undefined}
+                autoComplete="off"
+                errorpresent={formSubmitted && !!errors.mobileNumber ? 1 : 0}
               />
               <ErrorMessage
                 name="mobileNumber"
@@ -55,18 +64,22 @@ export default function YourDetails() {
               <StyledField
                 name="email"
                 type="email"
-                errorpresent={formSubmitted ? !!errors.email : undefined}
+                autoComplete="off"
+                errorpresent={formSubmitted && !!errors.email ? 1 : 0}
               />
               <ErrorMessage name="email" render={msg => <Error>{msg}</Error>} />
             </FieldContainer>
             <CheckboxContainer>
               <Field name="terms" type="checkbox" />
-              <CheckboxLabel htmlFor="terms">
-                Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do
-                eiusmod tempor incididunt ut labore et dolore magna aliqua
-              </CheckboxLabel>
+              <CheckboxLabelWrapper>
+                <CheckboxLabel htmlFor="terms">
+                  Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed
+                  do eiusmod tempor incididunt ut labore et dolore magna aliqua
+                </CheckboxLabel>
+                <StyledTooltip content="More tooltip content" />
+              </CheckboxLabelWrapper>
             </CheckboxContainer>
-              <ErrorMessage name="terms" render={msg => <Error>{msg}</Error>} />
+            <ErrorMessage name="terms" render={msg => <Error>{msg}</Error>} />
             <Button type="submit" onClick={() => setFormSubmitted(true)}>
               Next
             </Button>
@@ -99,6 +112,9 @@ const CheckboxContainer = styled.div`
 
 const StyledField = styled(Field)`
   border-radius: 1rem;
+  padding: 5px;
+  outline: none;
+  border: 1px solid lightgrey;
   ${p => p.errorpresent && "background-color: #F2DEDF !important; }"}
 `;
 
@@ -116,6 +132,18 @@ const Label = styled.label`
 const CheckboxLabel = styled.label`
   font-size: 0.7rem;
   padding-left: 10px;
+  display: inline;
+`;
+
+const CheckboxLabelWrapper = styled.div`
+  display: flex;
+  position: relative;
+`;
+
+const StyledTooltip = styled(Tooltip)`
+  position: absolute;
+  right: 15px;
+  bottom: 9px;
 `;
 
 const Button = styled.button`

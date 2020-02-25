@@ -8,10 +8,13 @@ function Video({ isPlaying, updateVideoPlayStatus }) {
   const videoEl = React.useRef(null);
 
   React.useEffect(() => {
-    if(isPlaying){
-      videoEl.current.play();
+    let playPromise;
+    if (isPlaying) {
+      playPromise = videoEl.current.play();
     } else {
-      videoEl.current.pause();
+      if (playPromise) {
+        playPromise.then(_ => videoEl.current.pause());
+      }
     }
   }, [isPlaying]);
 
@@ -20,7 +23,7 @@ function Video({ isPlaying, updateVideoPlayStatus }) {
   }
 
   return (
-    <div>
+    <VideoContainer>
       <VideoElement
         width="400"
         height="270"
@@ -35,20 +38,25 @@ function Video({ isPlaying, updateVideoPlayStatus }) {
           <CustomIcon src={playIcon} onClick={handleClick} />
         </CustomControls>
       )}
-    </div>
+    </VideoContainer>
   );
 }
 
 const mapStateToProps = state => ({
-  isPlaying: state.video.isPlaying,
+  isPlaying: state.video.isPlaying
 });
 
 const mapDispatchToProps = dispatch => ({
-  updateVideoPlayStatus: status =>
-      dispatch(updateVideoPlayStatus(status))
+  updateVideoPlayStatus: status => dispatch(updateVideoPlayStatus(status))
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Video);
+
+const VideoContainer = styled.div`
+  @media only screen and (max-width: 830px) {
+    display: none;
+  }
+`;
 
 const VideoElement = styled.video`
   border-radius: 1rem;
