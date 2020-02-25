@@ -100,9 +100,20 @@ const Slider = styled.input`
     cursor: pointer;
     box-shadow: -200px 0 0 190px #f66000;
   }
+  
+  &::-moz-range-thumb {
+    appearance: none;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    background: #05b7ab;
+    border: 2px solid #ffffff;
+    cursor: pointer;
+  }
 
   &::-moz-range-progress {
     background-color: #f66000;
+    height: 30px;
   }
 
   &::-moz-range-track {
