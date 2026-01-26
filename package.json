@@ -30,7 +30,7 @@
   },
   "devDependencies": {
     "prettier": "^1.19.1",
-    "react-scripts": "^3.0.1"
+    "react-scripts": "^3.4.4"
   },
   "browserslist": {
     "production": [
